@@ -26,7 +26,6 @@ You need a single value that can change (like an int, bool, or String).
 
 You want quick access and easy updates via .state.
 */
-final counterProvider = StateProvider<int>((ref) => 0);
 
 /* 
 ⚙️ 3. StateNotifier — Advanced, Structured State + Logic

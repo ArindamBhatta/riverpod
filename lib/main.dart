@@ -17,48 +17,34 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const TodoPage(),
+      home: const CounterApp(),
     );
   }
 }
 
-class MyHomePage extends ConsumerWidget {
-  const MyHomePage({super.key});
-
+class CounterApp extends ConsumerWidget {
+  const CounterApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final counterValue = ref.watch(counterProvider);
+    final int counterValue = ref.watch(counterNotifierProvider);
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text('count value is $counterValue'),
-          SizedBox(height: 8),
-          Consumer(
-            builder: (context, ref, child) {
-              final String greeting = ref.read(greetingProvider);
-              return Text(greeting);
-            },
-          ),
-        ],
-      ),
+      body: Text('counter value is $counterValue'),
       floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           FloatingActionButton(
             onPressed: () {
-              ref.read(counterProvider.notifier).state++;
+              ref.read(counterNotifierProvider.notifier).increment();
             },
             tooltip: 'Increment',
-            child: const Icon(Icons.add),
+            child: Icon(Icons.add),
           ),
-          Spacer(),
           FloatingActionButton(
             onPressed: () {
-              ref.read(counterProvider.notifier).state--;
+              ref.read(counterNotifierProvider.notifier).decrement();
             },
             tooltip: 'Decrement',
-            child: const Icon(Icons.minimize),
+            child: Icon(Icons.minimize_outlined),
           ),
         ],
       ),
